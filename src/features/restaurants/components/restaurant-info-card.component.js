@@ -36,16 +36,21 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <StyledCard elevation={5}>
-      <StyledCardCover source={{ uri: photos[0] }} />
+      <StyledCardCover source={{ uri: restaurant.photos }} />
       <Info>
-        <Text variant="body">{name}</Text>
+        <Text variant="body">{restaurant.name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map(() => (
-              <SvgXml width={20} height={20} xml={star} />
+            {ratingArray.map((_, i) => (
+              <SvgXml
+                key={`star-${restaurant.place_id}-${i}`}
+                width={20}
+                height={20}
+                xml={star}
+              />
             ))}
             <SectionEnd>
-              {isClosedTemporarily && (
+              {restaurant.isClosedTemporarily && (
                 <Text variant="error">Closed Temporarily</Text>
               )}
               <Spacer position="left" size="large">
@@ -53,12 +58,12 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
               </Spacer>
 
               <Spacer position="left" size="medium">
-                <Icon source={{ uri: icon }} />
+                <Icon source={{ uri: restaurant.icon }} />
               </Spacer>
             </SectionEnd>
           </Rating>
         </Section>
-        <Address>{address}</Address>
+        <Address>{restaurant.address}</Address>
       </Info>
     </StyledCard>
   );

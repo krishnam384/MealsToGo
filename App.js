@@ -14,7 +14,8 @@ import {
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { SafeArea } from "./src/components/utility/safe-area.component";
-
+import { RestaurantsContextprovider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/services/locations/location.context";
 const TAB_ICON = {
   Restaurants: "md-restaurant",
   Map: "md-map",
@@ -79,9 +80,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <MyTabs />
-        </NavigationContainer>
+        <LocationContextProvider>
+          <RestaurantsContextprovider>
+            <NavigationContainer>
+              <MyTabs />
+            </NavigationContainer>
+          </RestaurantsContextprovider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
